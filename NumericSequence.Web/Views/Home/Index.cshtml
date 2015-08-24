@@ -1,0 +1,39 @@
+﻿@model NumericSequence.Web.Models.Home.HomeViewModel
+
+@{
+    ViewBag.Title = "Numeric Sequence Generator";
+}
+
+<section class="calculator-area">
+    <div class="jumbotron">
+        <h1>Numeric Sequence Generator</h1>
+        <p>Please, enter a positve whole number to initiate the calculation of the numeric sequences.</p>
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.UpperBound, new { @class = "input-lg upper-bound" })
+                @Html.ValidationMessageFor(m => m.UpperBound)
+            </div>
+
+            <input type="submit" value="Calculate" class="btn btn-primary btn-lg" />
+        }
+    </div>
+
+    @Html.ValidationSummary(true)
+
+    @if (Model.Sequences != null)
+    {
+        foreach (var sequence in Model.Sequences)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@sequence.Name</h3>
+                </div>
+                <div class="panel-body sequence-value">
+                    @sequence.Value
+                </div>
+            </div>
+        }
+    }
+</section>
